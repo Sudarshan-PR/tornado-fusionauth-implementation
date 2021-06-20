@@ -1,7 +1,7 @@
 ## Fusionauth Authentication in Tornado
 - - -
 
-This a sample backend written in python (Tornado Framework) which will be using Fusionauth to handle authentication.
+This a sample backend written in python (Tornado Framework) which uses Fusionauth to handle authentication.
 
 
 Before starting make sure you have [setup fusionauth](https://fusionauth.io/docs/v1/tech/installation-guide/fusionauth-app/).
