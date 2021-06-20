@@ -1,0 +1,15 @@
+bracex==2.1.1
+casbin==1.1.1
+certifi==2020.12.5
+chardet==4.0.0
+idna==2.10
+Pillow==8.2.0
+PyJWT==2.1.0
+python-dotenv==0.17.1
+qrcode==6.1
+requests==2.25.1
+simpleeval==0.9.10
+six==1.16.0
+tornado==6.1
+urllib3==1.26.5
+wcmatch==8.2

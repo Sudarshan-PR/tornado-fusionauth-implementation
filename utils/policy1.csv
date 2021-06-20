@@ -1,0 +1,41 @@
+#Roles:
+#   analyst
+#   cx-agent
+#   cx-supervisor
+#   admin
+#   superadmin
+
+# Settings
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin', configurationsettings, write, allow
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor', changesettings, write, allow
+p, r.sub.Role=='superadmin', socialmediaauth, write, allow
+
+# User management
+p, r.sub.Role=='superadmin', createuser, write, allow
+
+# Inbox
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor' || r.sub.Role=='cx-agent' || r.sub.Role=='analyst', public_posts_and_emails, write, allow
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor' || r.sub.Role=='cx-agent' || r.sub.Role=='analyst', privatemessages, write, allow
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor' || r.sub.Role=='cx-agent', editposts, write, allow
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor' || r.sub.Role=='cx-agent', emailticket, write, allow
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor' || r.sub.Role=='cx-agent', deletefromsocialinbox, write, allow
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor' || r.sub.Role=='cx-agent', publicdomainrespond, write, allow
+
+# Publishing
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor' || r.sub.Role=='cx-agent', publishbrandposts, write, allow
+
+# Reports
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor' || r.sub.Role=='cx-agent' || r.sub.Role=='analyst', createcustomreport, write, allow
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor' || r.sub.Role=='analyst', agentperfreport, write, allow
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor' || r.sub.Role=='analyst', agentauditreport, write, allow
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin', usermonitoringreport, write, allow
+
+# Ticketing
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor', assigntickets, write, allow
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor' || r.sub.Role=='cx-agent', accesssToCXAgentTickets, write, allow
+p, r.sub.Role=='superadmin' || r.sub.Role=='admin' || r.sub.Role=='cx-supervisor', allaccesstickets, write, allow
+
+# Deny specific UserID's
+p, r.sub.Userid=='test2', assigntickets, write, deny
+p, r.sub.Userid=='test4', createcustomreport, write, deny
+p, r.sub.Userid=='test1', createcustomreport, write, deny
