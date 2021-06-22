@@ -80,18 +80,20 @@ class FushionAuthOauth2Mixin(tornado.web.RequestHandler, tornado.auth.OAuth2Mixi
 
 class FushionAuthLoginController(FushionAuthOauth2Mixin):
     async def get(self):
-        # Callback handler
+        # Callback handler (FusionAuth Callback)
         if self.get_argument('code', False):
             token = await self._get_tokens()
             print("Token: " + str(token)) 
-            # Get entire wnloadprofile data
+            # Get user data from FusionAuth using the access token
             user = await self.get_user_info(token['access_token'])            
-
+            
+            # Get username
             if user.get('given_name'):
                 username = user['given_name']
             elif user.get('preferred_username'):
                 username = user['preferred_username']
-
+            
+            # Get the user's first role
             role = user['roles'][0]
 
             # Get a user's permissions
@@ -99,15 +101,15 @@ class FushionAuthLoginController(FushionAuthOauth2Mixin):
             # Stringify permissions array
             permissions = escape.json_encode(permissions)
 
-            # Set permissions and access_token as cookie
+            # Set permissions and access_token as cookies
             self.set_secure_cookie("permissions", permissions)
             self.set_secure_cookie("access_token", token['access_token'])
 
             self.redirect('/')
 
-        # If not already logged in redirect to Fusionauth Login Page
+        # If not logged in, redirect to Fusionauth Login Page
         else:
-            self.authorize_redirect(
+            self.authorize_redirect( 
                 redirect_uri = 'http://localhost:8000/callback',
                 client_id = settings.fusionauth_key,
                 client_secret = settings.fusionauth_secret_key,
